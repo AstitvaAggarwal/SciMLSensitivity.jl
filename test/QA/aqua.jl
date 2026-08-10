@@ -43,6 +43,9 @@ run_qa(
                 :unwrapped_f,
                 # SciMLStructures
                 :Tunable, :canonicalize, :isscimlstructure,
+                # Mooncake
+                :CoDual, :ForwardMode, :MinimalCtx, :(var"@is_primitive"),
+                :(var"@zero_derivative"), :frule!!, :rrule!!,
                 # SciMLSensitivityMooncakeExt re-imports these internal/non-public
                 # names through the parent module (`using/import SciMLSensitivity: ...`),
                 # the intentional extension idiom. They are SciMLSensitivity internals
@@ -63,7 +66,7 @@ run_qa(
                 # ArrayInterface
                 :parameterless_type,
                 # Base
-                :(var"@pure"), :_nt_names, :diff_names, :structdiff,
+                :(var"@pure"), :_nt_names, :diff_names, :inferencebarrier, :structdiff,
                 # Core
                 :kwcall,
                 # DiffEqBase (internal `solve_up`/`_solve_adjoint` rrule plumbing
@@ -91,9 +94,9 @@ run_qa(
                 :needs_concrete_A,
                 # Mooncake (internal tangent/rrule API used by SciMLSensitivityMooncakeExt)
                 :CoDual, :NoFData, :NoRData, :Tangent, :build_rrule, :fdata,
-                :increment_and_get_rdata!, :instantiate, :lazy_zero_rdata, :primal,
-                :rdata, :rrule!!, :tangent, :tangent_to_primal!!, :to_cr_tangent,
-                :tuple_map, :zero_rdata, :zero_tangent,
+                :increment_and_get_rdata!, :instantiate, :lazy_zero_rdata, :mooncake_tangent,
+                :primal, :rdata, :rrule!!, :tangent, :tangent_to_primal!!, :to_cr_tangent,
+                :to_fwds, :tuple_map, :zero_rdata, :zero_tangent,
                 # OrdinaryDiffEqCore
                 :alg_autodiff, :default_linear_interpolation,
                 # ReverseDiff
@@ -111,6 +114,8 @@ run_qa(
                 :enable_interpolation_sensitivitymode,
                 :has_initialization_data, :has_observed, :has_paramjac, :has_vjp_p,
                 :initialization_status, :sensitivity_solution, :specialization,
+                # SciMLSensitivity (own internal, accessed qualified from the extension)
+                :automatic_sensealg_choice,
                 # SciMLStructures
                 :replace,
                 # SparseArrays
